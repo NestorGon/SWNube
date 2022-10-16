@@ -1,0 +1,25 @@
+from flaskr import create_app
+from flask_restful import Api
+from flask_jwt_extended import JWTManager
+from .models import db
+from .endpoints import SignUp, LogIn, Tasks
+import os
+
+app = create_app('default')
+app_context = app.app_context()
+app_context.push()
+
+if not os.path.exists('../files'):
+    os.makedirs('../files')
+
+app.config["UPLOAD_FOLDER"] = '../files'
+
+db.init_app(app)
+db.create_all()
+
+api = Api(app, prefix='/api')
+api.add_resource(SignUp, '/auth/signup')
+api.add_resource(LogIn, '/auth/login')
+api.add_resource(Tasks, '/tasks')
+
+jwt = JWTManager(app)
