@@ -51,7 +51,7 @@
 			"response": []
 		},
 		{
-			"name": "PostTask",
+			"name": "PostTaskMP3-WAV",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -71,7 +71,7 @@
 						{
 							"key": "audio",
 							"type": "file",
-							"src": "../testFiles/VuelveLatinDreams.mp3"
+							"src": "VuelveLatinDreams.mp3"
 						},
 						{
 							"key": "filename",
@@ -81,6 +81,112 @@
 						{
 							"key": "newFormat",
 							"value": "wav",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/tasks",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostTaskMP3-OGG",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "audio",
+							"type": "file",
+							"src": "VuelveLatinDreams.mp3"
+						},
+						{
+							"key": "filename",
+							"value": "VuelveLatinDreams.mp3",
+							"type": "text"
+						},
+						{
+							"key": "newFormat",
+							"value": "ogg",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/tasks",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"tasks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PostTaskOGG-MP3",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "audio",
+							"type": "file",
+							"src": "VuelveLatinDreams.ogg"
+						},
+						{
+							"key": "filename",
+							"value": "VuelveLatinDreams.ogg",
+							"type": "text"
+						},
+						{
+							"key": "newFormat",
+							"value": "mp3",
 							"type": "text"
 						}
 					]
