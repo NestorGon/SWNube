@@ -25,20 +25,25 @@ class Tasks(Resource):
         if request.files:
             original_audio = request.files['audio']
             filename = secure_filename(request.form['filename'])
-            ext = ''
+            in_ext = ''
+            out_ext = ''
+            allowed_ext = ['MP3','OGG','WAV']
             if '.' not in filename:
                 return {'error': 'Bad filename'}, 400
             else:
-                ext = filename.split('.')
-                ext = ext[len(ext)-1]
-                if ext.upper() not in ['MP3','OGG','WAV']:
-                    return {'error': 'Invalid extension'}, 400
-            task = Task(name=filename,originalExt=ext,convertedExt=request.form['newFormat'],state=State.UPLOADED,user=str(current_user))
+                in_ext = filename.split('.')
+                in_ext = in_ext[len(in_ext)-1]
+                out_ext = request.form['newFormat']
+                if in_ext.upper() not in allowed_ext or out_ext.upper() not in allowed_ext :
+                    return {'error': 'Invalid extension. Use .mp3, .ogg or .wav'}, 400
+            task = Task(name=filename,originalExt=in_ext.lower(),convertedExt=out_ext.lower(),state=State.UPLOADED,user=str(current_user))
             db.session.add(task)
             db.session.commit()
             task_path = os.path.join(current_app.config['UPLOAD_FOLDER'],str(task.id))
             os.makedirs(task_path)
             original_audio.save(os.path.join(task_path,filename))
-            start_conversion.delay()
+            in_route = os.path.join(task_path,filename)
+            out_route = os.path.join(task_path,filename.replace(f'.{in_ext.lower()}',f'.{out_ext.lower()}'))
+            start_conversion.delay(task.id,in_route,out_route,out_ext,db)
             return {'message':'Task created successfully','task':tasks_schema.dump(task)}
 
