@@ -44,6 +44,5 @@ class Tasks(Resource):
             original_audio.save(os.path.join(task_path,filename))
             in_route = os.path.join(task_path,filename)
             out_route = os.path.join(task_path,filename.replace(f'.{in_ext.lower()}',f'.{out_ext.lower()}'))
-            start_conversion.delay(task.id,in_route,out_route,out_ext,db)
+            start_conversion.delay(task.id,in_route,out_route,in_ext,out_ext,db)
             return {'message':'Task created successfully','task':tasks_schema.dump(task)}
-
