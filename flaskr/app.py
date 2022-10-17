@@ -1,8 +1,9 @@
 from flaskr import create_app
 from flask_restful import Api
 from flask_jwt_extended import JWTManager
+
 from .models import db
-from .endpoints import SignUp, LogIn, Tasks
+from .endpoints import SignUp, LogIn, Tasks, BackgroundTask
 import os
 
 app = create_app('default')
@@ -21,5 +22,6 @@ api = Api(app, prefix='/api')
 api.add_resource(SignUp, '/auth/signup')
 api.add_resource(LogIn, '/auth/login')
 api.add_resource(Tasks, '/tasks')
+api.add_resource(BackgroundTask, '/tasks/<int:task_id>/processed')
 
 jwt = JWTManager(app)
