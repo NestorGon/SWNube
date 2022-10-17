@@ -1,19 +1,21 @@
 {
 	"info": {
-		"_postman_id": "922fd00d-9c6f-411f-aad4-d8a668ce71d1",
+		"_postman_id": "8f236558-8f2f-45e7-9a7d-99272aa930c3",
 		"name": "UserTasks",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "14951808"
 	},
 	"item": [
 		{
-			"name": "LogIn",
+			"name": "SignUp",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.globals.set(\"token\",pm.response.json()[\"token\"])"
+							"pm.test(\"Status is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -24,7 +26,55 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"email\":\"nf.gonzalez@uniandes.edu.co\",\r\n    \"password\":\"123456\"\r\n}",
+					"raw": "{\r\n    \"user\":\"nf.gonz\",\r\n    \"email\":\"nf.gonz@uniandes.edu.co\",\r\n    \"password1\":\"123456\",\r\n    \"password2\":\"123456\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/auth/signup",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					]
+				},
+				"description": "Valid sign up with unique username, email and matching password"
+			},
+			"response": []
+		},
+		{
+			"name": "LogIn",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.globals.set(\"token\",pm.response.json()[\"token\"]);\r",
+							"pm.test(\"Status is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\":\"nf.gonz@uniandes.edu.co\",\r\n    \"password\":\"123456\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -46,12 +96,26 @@
 						"auth",
 						"login"
 					]
-				}
+				},
+				"description": "Valid login with existing email and matching password"
 			},
 			"response": []
 		},
 		{
 			"name": "PostTaskMP3-WAV",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -99,12 +163,26 @@
 						"api",
 						"tasks"
 					]
-				}
+				},
+				"description": "Valid post of conversion task from mp3 to wav"
 			},
 			"response": []
 		},
 		{
 			"name": "PostTaskMP3-OGG",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -152,12 +230,26 @@
 						"api",
 						"tasks"
 					]
-				}
+				},
+				"description": "Valid post of conversion task from mp3 to ogg"
 			},
 			"response": []
 		},
 		{
 			"name": "PostTaskOGG-MP3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -205,12 +297,26 @@
 						"api",
 						"tasks"
 					]
-				}
+				},
+				"description": "Valid post of conversion task from ogg to mp3"
 			},
 			"response": []
 		},
 		{
-			"name": "GetUserTasks",
+			"name": "PostTaskOGG-WAVV",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -218,6 +324,192 @@
 						{
 							"key": "token",
 							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "audio",
+							"type": "file",
+							"src": "VuelveLatinDreams.ogg"
+						},
+						{
+							"key": "filename",
+							"value": "VuelveLatinDreams.ogg",
+							"type": "text"
+						},
+						{
+							"key": "newFormat",
+							"value": "wav",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/tasks",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"tasks"
+					]
+				},
+				"description": "Valid post of conversion task from ogg to wav"
+			},
+			"response": []
+		},
+		{
+			"name": "PostTaskNoFile",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "filename",
+							"value": "VuelveLatinDreams.mp3",
+							"type": "text"
+						},
+						{
+							"key": "newFormat",
+							"value": "wav",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/tasks",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"tasks"
+					]
+				},
+				"description": "Invalid post of conversion task because of missing file/key"
+			},
+			"response": []
+		},
+		{
+			"name": "GetUserTasks",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/tasks?max=2&order=0",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"tasks"
+					],
+					"query": [
+						{
+							"key": "max",
+							"value": "2"
+						},
+						{
+							"key": "order",
+							"value": "0"
+						}
+					]
+				},
+				"description": "Valid request to get user tasks. The request can be customized by changing the parameters max and order. Max has to be a positive integer and order has to be 0 or 1, to have an ascending or descending order respectively."
+			},
+			"response": []
+		},
+		{
+			"name": "GetUserTasksBadToken",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 500\", function () {\r",
+							"    pm.response.to.have.status(500);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "badtokeninheader",
 							"type": "string"
 						}
 					]
@@ -238,7 +530,55 @@
 						"api",
 						"tasks"
 					]
+				},
+				"description": "Invalid request because of an invalid token provided for authorization"
+			},
+			"response": []
+		},
+		{
+			"name": "GetUserTasksNoAuth",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 500\", function () {\r",
+							"    pm.response.to.have.status(500);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
 				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/tasks",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"tasks"
+					]
+				},
+				"description": "Invalid request because of missing token for authorization"
 			},
 			"response": []
 		}
