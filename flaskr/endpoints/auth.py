@@ -10,6 +10,8 @@ class SignUp(Resource):
         try:
             if User.query.get(request.json['email']) is not None:
                 return {'error':"A user with this email already exists"}, 400
+            if '@' not in request.json['email']:
+                return {'error':'Invalid email'}, 400
             if User.query.filter_by(username=request.json['user']).count() != 0:
                 return {'error':"A user with this username already exists"}, 400
             if request.json['password1'] != request.json['password2']:
@@ -25,6 +27,12 @@ class SignUp(Resource):
 class LogIn(Resource):
 
     def post(self):
+        user = None
+        try:
+            request.json['email']
+            request.json['password']
+        except:
+            return {'error':'Bad request'}, 400
         user = User.query.get_or_404(request.json['email'])
         if user.password != request.json['password']:
             return {'error':'Bad credentials'}, 401
