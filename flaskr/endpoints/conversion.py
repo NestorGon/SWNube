@@ -63,3 +63,5 @@ class BackgroundTask(Resource):
         task.state = State.PROCESSED
         db.session.commit()
         return {'message':'Updated task'}
+
+#
