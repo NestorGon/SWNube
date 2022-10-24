@@ -27,7 +27,6 @@ class Tasks(Resource):
     @jwt_required()
     def post(self):
         current_user = get_jwt_identity()
-
         original_audio = request.files['audio']
         filename = secure_filename(request.form['filename'])
         in_ext = ''
