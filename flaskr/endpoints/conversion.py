@@ -49,7 +49,7 @@ class Tasks(Resource):
         original_audio.save(os.path.join(task_path,filename))
         in_route = os.path.join(task_path,filename)
         out_route = os.path.join(task_path,filename.replace(f'.{in_ext.lower()}',f'.{out_ext.lower()}'))
-        #start_conversion.delay(task.id,in_route,out_route,in_ext,out_ext)
+        start_conversion.delay(task.id,in_route,out_route,in_ext,out_ext)
         print(task.id,in_route,out_route,in_ext,out_ext)
         return {'message':'Task created successfully','task':tasks_schema.dump(task)}
     
@@ -89,7 +89,7 @@ class Task2 (Resource):
             task_path = os.path.join(current_app.config['UPLOAD_FOLDER'])
             in_route = os.path.join(task_path, str(task.id) ,task.name)
             out_route = os.path.join(task_path, str(task.id) ,task.name.replace(f'.{task.originalExt.lower()}',f'.{task.convertedExt.lower()}'))
-            #start_conversion.delay(task.id,in_route,out_route,task.originalExt,task.convertedExt)
+            start_conversion.delay(task.id,in_route,out_route,task.originalExt,task.convertedExt)
             return tasks_schema.dump(task)
         return {'error':'Task not found'}, 404
 
