@@ -62,7 +62,6 @@ class BackgroundTask(Resource):
         return {'message':'Updated task'}
 
 class Task2 (Resource):
-
     #5
     @jwt_required()
     def get(self, task_id):
