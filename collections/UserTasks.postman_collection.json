@@ -626,12 +626,12 @@
 						"1"
 					]
 				},
-				"description": "Valid request to get user tasks. The request can be customized by changing the parameters max and order. Max has to be a positive integer and order has to be 0 or 1, to have an ascending or descending order respectively."
+				"description": "Valid request to get a specific user task. The request provide one id to search the task"
 			},
 			"response": []
 		},
 		{
-			"name": "GetUserTaskConverted",
+			"name": "GetUserTaskOriginalFile",
 			"event": [
 				{
 					"listen": "test",
@@ -674,7 +674,7 @@
 						"1"
 					]
 				},
-				"description": "Valid request to get user tasks. The request can be customized by changing the parameters max and order. Max has to be a positive integer and order has to be 0 or 1, to have an ascending or descending order respectively."
+				"description": "Valid request to get the original file uploaded. it is necessary provide the task id and to be logged to get the file."
 			},
 			"response": []
 		},
@@ -731,7 +731,7 @@
 						"1"
 					]
 				},
-				"description": "Valid request to get user tasks. The request can be customized by changing the parameters max and order. Max has to be a positive integer and order has to be 0 or 1, to have an ascending or descending order respectively."
+				"description": "Valid request to put user task. the user can change the format to convert the file only if the original file had the state equal to UPLOADED."
 			},
 			"response": []
 		},
@@ -779,7 +779,7 @@
 						"1"
 					]
 				},
-				"description": "Valid request to get user tasks. The request can be customized by changing the parameters max and order. Max has to be a positive integer and order has to be 0 or 1, to have an ascending or descending order respectively."
+				"description": "Valid request to delete an user tasks. the user provide the id of the task and the task with the original file and the converted file was delete."
 			},
 			"response": []
 		}

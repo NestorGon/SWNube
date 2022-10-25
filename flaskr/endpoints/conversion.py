@@ -77,7 +77,7 @@ class Task2 (Resource):
         current_user = get_jwt_identity()
         task = Task.query.filter_by(id=task_id,user=current_user).first()
         if task:
-            if task.state == State.PROCESSED:
+            if task.state == State.UPLOADED:
                 #Borrar el archivo antiguo
                 files = current_app.config['UPLOAD_FOLDER']
                 os.makedirs(files, exist_ok=True)
@@ -108,21 +108,6 @@ class Task2 (Resource):
         else:
             return {'error':'Task not found'}, 404
 
-class Download(Resource):
-
-    @jwt_required()
-    def get(self, task_id):
-        current_user = get_jwt_identity()
-        task = Task.query.filter_by(id=task_id,user=current_user).first()
-        if task:
-            if task.state == State.PROCESSED:
-                files = current_app.config['UPLOAD_FOLDER']
-                os.makedirs(files, exist_ok=True)
-                return send_from_directory(os.path.join(files,str(task.id)), task.name.replace(f'.{task.originalExt}',f'.{task.convertedExt}'), as_attachment=True)
-            else:
-                return {'error':'Task not processed yet'}, 404
-        else:
-            return {'error':'Task not found'}, 404
 
 class Download(Resource):
 
