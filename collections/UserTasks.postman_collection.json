@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "8f236558-8f2f-45e7-9a7d-99272aa930c3",
+		"_postman_id": "68e0ce17-7183-49af-b9fe-c910e6c55ce3",
 		"name": "UserTasks",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "14951808"
+		"_exporter_id": "19274258"
 	},
 	"item": [
 		{
@@ -135,7 +135,7 @@
 						{
 							"key": "audio",
 							"type": "file",
-							"src": "VuelveLatinDreams.mp3"
+							"src": "/Users/danielo06/Documents/Universidad/202220/sw en la nube/SWNube/collections/VuelveLatinDreams.mp3"
 						},
 						{
 							"key": "filename",
@@ -269,7 +269,7 @@
 						{
 							"key": "audio",
 							"type": "file",
-							"src": "VuelveLatinDreams.ogg"
+							"src": "/Users/danielo06/Documents/Universidad/202220/sw en la nube/SWNube/collections/VuelveLatinDreams.ogg"
 						},
 						{
 							"key": "filename",
@@ -581,6 +581,237 @@
 				"description": "Invalid request because of missing token for authorization"
 			},
 			"response": []
+		},
+		{
+			"name": "GetUserTask",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/tasks/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"tasks",
+						"1"
+					]
+				},
+				"description": "Valid request to get user tasks. The request can be customized by changing the parameters max and order. Max has to be a positive integer and order has to be 0 or 1, to have an ascending or descending order respectively."
+			},
+			"response": []
+		},
+		{
+			"name": "GetUserTaskConverted",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/download/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"download",
+						"1"
+					]
+				},
+				"description": "Valid request to get user tasks. The request can be customized by changing the parameters max and order. Max has to be a positive integer and order has to be 0 or 1, to have an ascending or descending order respectively."
+			},
+			"response": []
+		},
+		{
+			"name": "PutUserTask",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"newFormat\":\"ogg\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/tasks/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"tasks",
+						"1"
+					]
+				},
+				"description": "Valid request to get user tasks. The request can be customized by changing the parameters max and order. Max has to be a positive integer and order has to be 0 or 1, to have an ascending or descending order respectively."
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteUserTask",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/tasks/1",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"tasks",
+						"1"
+					]
+				},
+				"description": "Valid request to get user tasks. The request can be customized by changing the parameters max and order. Max has to be a positive integer and order has to be 0 or 1, to have an ascending or descending order respectively."
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }
