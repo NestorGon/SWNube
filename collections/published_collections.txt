@@ -1,3 +1,3 @@
 Signup collection: https://documenter.getpostman.com/view/14951808/2s847CxFc6
 Login collection: https://documenter.getpostman.com/view/14951808/2s847CxFJX
-User tasks: https://documenter.getpostman.com/view/14951808/2s847CxaUi
+User tasks: https://documenter.getpostman.com/view/19274258/2s84LPvWs9
