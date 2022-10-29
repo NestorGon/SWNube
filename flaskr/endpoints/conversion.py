@@ -1,3 +1,5 @@
+from celery import Celery
+import celery
 from flask import request, send_from_directory
 from flask_restful import Resource
 from flask_jwt_extended import jwt_required, get_jwt_identity
@@ -8,9 +10,15 @@ from shutil import rmtree
 from flask import current_app
 
 from ..models import db, Task, TaskSchema, State
-from ..batch_process import start_conversion
+# from ..batch_process import start_conversion
 
 tasks_schema = TaskSchema()
+
+celery_app = Celery(__name__, broker='redis://{}:6379/00'.format(os.environ.get("REDIS_INSTANCE_IP")))
+
+@celery_app.task(name="start_conversion")
+def start_conversion(*args):
+    pass
 
 class Tasks(Resource):
 
@@ -48,7 +56,8 @@ class Tasks(Resource):
         original_audio.save(os.path.join(task_path,filename))
         in_route = os.path.join(task_path,filename)
         out_route = os.path.join(task_path,filename.replace(f'.{in_ext.lower()}',f'.{out_ext.lower()}'))
-        start_conversion.delay(task.id,in_route,out_route,in_ext,out_ext)
+        args = (task.id,in_route,out_route,in_ext,out_ext)
+        start_conversion.apply_async(args=args, queue="batch")
         print(task.id,in_route,out_route,in_ext,out_ext)
         return {'message':'Task created successfully','task':tasks_schema.dump(task)}
     
@@ -88,7 +97,8 @@ class Task2 (Resource):
             task_path = os.path.join(current_app.config['UPLOAD_FOLDER'])
             in_route = os.path.join(task_path, str(task.id) ,task.name)
             out_route = os.path.join(task_path, str(task.id) ,task.name.replace(f'.{task.originalExt.lower()}',f'.{task.convertedExt.lower()}'))
-            start_conversion.delay(task.id,in_route,out_route,task.originalExt,task.convertedExt)
+            args = (task.id,in_route,out_route,task.originalExt,task.convertedExt)
+            start_conversion.apply_async(args=args, queue="batch")
             return tasks_schema.dump(task)
         return {'error':'Task not found'}, 404
 
