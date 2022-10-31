@@ -17,10 +17,14 @@ class SignUp(Resource):
             if request.json['password1'] != request.json['password2']:
                 return {'error':"Passwords don't match"}, 400
             new_user = User(email=request.json['email'], username=request.json['user'], password=request.json['password1'])
+            print(1)
             db.session.add(new_user)
+            print(2)
             db.session.commit()
+            print(3)
             return {"message":"User created successfully"}
-        except:
+        except Exception as e:
+            print(e)
             return {'error':'Bad request'}, 400
 
 

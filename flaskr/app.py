@@ -13,7 +13,7 @@ app_context.push()
 if not os.path.exists('../files'):
     os.makedirs('../files')
 
-app.config["UPLOAD_FOLDER"] = '../files'
+app.config["UPLOAD_FOLDER"] = "/nfs/home/files"
 
 db.init_app(app)
 db.create_all()

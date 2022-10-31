@@ -18,6 +18,7 @@ celery_app = Celery(__name__, broker='redis://{}:6379/00'.format(os.environ.get(
 
 @celery_app.task(name="start_conversion")
 def start_conversion(*args):
+    print("Funcion vacia")
     pass
 
 class Tasks(Resource):
