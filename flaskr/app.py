@@ -26,4 +26,8 @@ api.add_resource(Task2, '/tasks/<int:task_id>')
 api.add_resource(Download, '/download/<int:task_id>')
 api.add_resource(BackgroundTask, '/tasks/<int:task_id>/processed')
 
+@app.route('/')
+def default():
+    return 'Success', 200
+
 jwt = JWTManager(app)
