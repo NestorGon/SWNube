@@ -1,27 +1,33 @@
 from google.cloud import storage
-from celery import Celery
-import celery
+#from celery import Celery
+#import celery
 from flask import request, send_from_directory
 from flask_restful import Resource
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from werkzeug.utils import secure_filename
 import os
 from shutil import rmtree
+from google.cloud import pubsub_v1
 
 from flask import current_app
 
 from ..models import db, Task, TaskSchema, State
 #from ..batch_process import start_conversion
 
+topic_id="tasks"
+project_id=os.environ.get("PROJECT_ID")
+publisher=pubsub_v1.PublisherClient()
+topic_path=publisher.topic_path(project_id,topic_id)
+
 tasks_schema = TaskSchema()
 
-celery_app = Celery(__name__, broker='redis://{}:6379/00'.format(os.environ.get("REDIS_INSTANCE_IP")))
+#celery_app = Celery(__name__, broker='redis://{}:6379/00'.format(os.environ.get("REDIS_INSTANCE_IP")))
 
 bucket_name = "swnube30"
 
-@celery_app.task(name="start_conversion")
-def start_conversion(*args):
-    pass
+#@celery_app.task(name="start_conversion")
+#def start_conversion(*args):
+#    pass
 
 class Tasks(Resource):
 
@@ -64,8 +70,13 @@ class Tasks(Resource):
         out_route = "{}/{}".format(task.id,filename.replace(f'.{in_ext.lower()}',f'.{out_ext.lower()}'))
         blob = bucket.blob("{}/{}".format(task.id, filename))
         blob.upload_from_file(original_audio)
-        args = (task.id,in_route,out_route,in_ext,out_ext)
-        start_conversion.apply_async(args=args, queue="batch")
+        #args = (task.id,in_route,out_route,in_ext,out_ext)
+        args={"task_id":task.id,"in_route":in_route,"out_route":out_route,"in_ext":in_ext,"out_ext":out_ext}
+        data=str(args).encode("utf-8")
+
+        future=publisher.publish(topic_path,data)
+        print(future.result())
+        #start_conversion.apply_async(args=args, queue="batch")
         #print(task.id,in_route,out_route,in_ext,out_ext)
         return {'message':'Task created successfully','task':tasks_schema.dump(task)}
     
