@@ -57,7 +57,7 @@ def start_conversion(task_id,in_route,out_route,in_ext,out_ext):
     os.remove(in_route.split("/")[1])
     os.remove(out_route.split("/")[1])
     print(2)
-    r = requests.post(f'http://{os.environ.get("API_INSTANCE_IP")}:5000/api/tasks/{task_id}/processed')
+    r = requests.post(f'http://{os.environ.get("API_INSTANCE_IP")}:8080/api/tasks/{task_id}/processed')
     print(f'Response: {r.status_code}')
 
 
