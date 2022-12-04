@@ -19,8 +19,8 @@ app = create_app('default')
 app_context = app.app_context()
 app_context.push()
 
-if not os.path.exists('../files'):
-    os.makedirs('../files')
+#if not os.path.exists('../files'):
+#    os.makedirs('../files')
 
 app.config["UPLOAD_FOLDER"] = "/nfs/home/files"
 
