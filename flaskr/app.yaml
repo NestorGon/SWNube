@@ -1,9 +1,9 @@
-runtime: python
+runtime: python39
 env: flex
 entrypoint: flask run --host=0.0.0.0
 
-runtime_config:
-  python_version: 3
+#runtime_config:
+#  python_version: 3.9
 
 env_variables:
   PROJECT_ID: swnube
