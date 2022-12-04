@@ -1,5 +1,4 @@
 runtime: python39
-env: flex
 entrypoint: flask run --host=0.0.0.0
 
 #runtime_config:
