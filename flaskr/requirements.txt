@@ -2,9 +2,15 @@ amqp==5.1.1
 aniso8601==9.0.1
 async-timeout==4.0.2
 billiard==3.6.4.0
+cachetools==5.2.0
+celery==5.2.7
 certifi==2022.9.24
 cffi==1.15.1
 charset-normalizer==2.1.1
+click==8.1.3
+click-didyoumean==0.3.0
+click-plugins==1.1.1
+click-repl==0.2.0
 colorama==0.4.5
 dbus-python==1.2.16
 Deprecated==1.2.13
