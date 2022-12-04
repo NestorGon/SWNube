@@ -1,0 +1,6 @@
+runtime: python310
+env: flex
+entrypoint: flask run --host=0.0.0.0
+
+env_variables:
+  PROJECT_ID: swnube
