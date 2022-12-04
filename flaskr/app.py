@@ -1,10 +1,19 @@
-from flaskr import create_app
+#from flaskr import create_app
 from flask_restful import Api
 from flask_jwt_extended import JWTManager
 
 from .models import db
 from .endpoints import SignUp, LogIn, Tasks, BackgroundTask, Task2, Download
 import os
+
+from flask import Flask
+
+def create_app(config_name):
+    app = Flask(__name__)  
+    app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:admin@34.68.80.135/postgres"
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.config['JWT_SECRET_KEY']='frase-secreta'
+    return app
 
 app = create_app('default')
 app_context = app.app_context()
