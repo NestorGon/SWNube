@@ -1,0 +1,5 @@
+runtime: python39
+#entrypoint: python3 -m batch.py
+service: worker
+env_variables:
+  API_INSTANCE_IP: swnube.ue.r.appspot.com
